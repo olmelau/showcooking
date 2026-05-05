@@ -16,6 +16,7 @@ class ConexionBD {
                 // Crear la conexión PDO
                 self::$conexion = new PDO($dsn, DB_USUARIO, DB_CONTRA);
                 self::$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$conexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
                 
             } catch (PDOException $e) {
                 die("Error al conectar con la base de datos: " . $e->getMessage());
