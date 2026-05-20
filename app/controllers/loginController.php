@@ -1,7 +1,7 @@
 <?php
 
                 
-require_once ('../models/loginModel.php');
+require_once (MODEL_PATH.'loginModel.php');
 
 class LoginController
 {
@@ -11,7 +11,7 @@ class LoginController
     
         switch ($rol) {
             case 'admin':
-                require_once '../views/adminView.php';
+                require_once (VIEW_PATH.'adminView.php');
                  
                 break;
             case 'cocinero':

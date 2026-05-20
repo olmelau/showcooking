@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../config/conexionBaseDatos.php';
+require_once CONFIG_PATH.'conexionBaseDatos.php';
 
 class LoginModel{
 
@@ -9,7 +9,6 @@ class LoginModel{
     public function __construct(){
 
         $this->db = ConexionBD::conexion();
-
 
     }
 

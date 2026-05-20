@@ -1,6 +1,7 @@
 <?php
 //Conexion a la base de Datos - Las constantes estan en configBaseDatos.php
-require_once "configBaseDatos.php";
+require_once (CONFIG_PATH.'configBaseDatos.php');
+
 class ConexionBD {
     private static $conexion=null;
 

@@ -1,4 +1,8 @@
 <?php
+
+//hacemos un require de las rutas
+require_once 'routes.php';
+
 // INDEX - API REST
 
 // $url = $SERVER['REQUEST_URI']; //Esto es la url que va a tener el navegador
@@ -21,13 +25,19 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 
 // $metodo = 'GET';
 echo $metodo;
+
+if (!isset($_POST['controller']) || !isset($GET['controller'])){
+
+    $metodo = 'home';
+
+}
 switch ($metodo) {
     
     case 'GET':
 
         $controllerName = $_GET['controller'] . 'Controller';
         $actionName = $_GET['action'];
-        $controllerFile = '../app/controllers/' . $controllerName . '.php';
+        $controllerFile = CONTROLLER_PATH. $controllerName . '.php';
         $array_datos = []; //aqui almacenaremos el resto de la url a partir del action
 
         if (file_exists($controllerFile)) {
@@ -54,7 +64,7 @@ switch ($metodo) {
 
         $controllerName = $_POST['controller'] . 'Controller';
         $actionName = $_POST['action'];
-        $controllerFile = '../app/controllers/' . $controllerName . '.php';
+        $controllerFile = CONTROLLER_PATH . $controllerName . '.php';
         $array_datos = []; //aqui almacenaremos el resto de la url a partir del action
 
         if (file_exists($controllerFile)) {
@@ -78,15 +88,24 @@ switch ($metodo) {
         
         break;
 
+
+        case 'home':
+            echo 'HOME';
+            require_once (CONTROLLER_PATH.'loginController.php');
+            $controller = new LoginController();
+            $controller->verLogin();
+            break;
+
     default:
         
         //esto cuando tengamos el login redirigiremos a la pagina de inicio o de login si no tengo la sesion iniciada.
-        require_once ('../app/controllers/loginController.php');
+        require_once (CONTROLLER_PATH.'loginController.php');
         $controller = new LoginController();
         $controller->verLogin();
         break;
 
 }
+
 
 
 ?>
