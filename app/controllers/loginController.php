@@ -6,19 +6,28 @@ require_once (MODEL_PATH.'loginModel.php');
 class LoginController
 {
 
+    public function verLogin(){
+
+        require_once VIEW_PATH.'loginView.php';
+
+    }
+
     public function comprobarRol($rol)
     {
     
         switch ($rol) {
             case 'admin':
-                require_once (VIEW_PATH.'adminView.php');
+                
+                $admin = new Admin();
                  
                 break;
             case 'cocinero':
-                echo '<p>dashboardController works porque soy COCINERO!</p>';
+              
+                $cocinero = new Cocinero();
                 break;
             case 'visitante':
-                 echo '<p>dashboardController works porque soy VISITANTE!</p>';
+                
+                $visitante = new VisitanteRegistrado();
                 break;
             
             default:
@@ -43,6 +52,7 @@ class LoginController
         $username = $_POST['username'];
         $contrasena = $_POST['contrasena'];
 
+        
         $loginModel = new LoginModel();
 
         
@@ -51,11 +61,7 @@ class LoginController
         
         if($datos_usuario != false){
 
-            $_SESSION ['username'] = $username;
-            $_SESSION['contrasena'] = $contrasena;
-            $_SESSION['id_usuario'] = $datos_usuario['id_usuario'];
-            $_SESSION['id_rol'] = $datos_usuario['id_rol'];
-            $_SESSION['nombre_rol'] = $datos_usuario['nombre_rol'];
+            // $_SESSION [$admin];
 
             $this->comprobarRol($datos_usuario['nombre_rol']);
 
@@ -64,21 +70,7 @@ class LoginController
         echo 'no estoy encontrando al usuario';
      }
 
-
-
-
     }
-
-
-    public function verLogin(){
-        require_once ('../app/views/loginView.php');
-    }
-
 }
-
-
-
-
-
 
 ?>

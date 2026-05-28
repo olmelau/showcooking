@@ -1,12 +1,11 @@
-
-<form action="index.php" method="post">
-
-    <input type="hidden" name="controller" value="login">
-    <input type="hidden" name="action" value="comprobarUsuarioExiste">
-
-    <input type="text" name="username" id="username" value="admin_chef">
-    <input type="password" name="contrasena" id="contrasena" value="pass123">
-
-    <button type="submit">Login</button>
-
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+</body>
+</html>

@@ -4,108 +4,38 @@
 require_once 'routes.php';
 
 // INDEX - API REST
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = trim($uri, '/');
+$partes = explode('/', $uri);
 
-// $url = $SERVER['REQUEST_URI']; //Esto es la url que va a tener el navegador
- 
-$metodo = $_SERVER['REQUEST_METHOD'];
+// var_dump($uri);
+// var_dump($partes);
 
-//aqui se captura el metodo de la petición
+$controllerUri = $partes[3] ?? "login"; //la parte de la uri que es el controlador -> api o home o cualquier otro controller que vaya a implementar
+$action = $partes[4] ?? "verLogin";  //accion o metodo que tiene que estar dentro del controlador
+$class = $controllerUri . "Controller";
 
-//convertir la ruta a un array con el metodo parse_url -> esto elimina el host (donde se ubica la web)
-// $url_array = parse_url($url);
-//hacer el trim para eliminar espacios en blanco si hubiera
-// $url_array = trim($url_array);
+$rutaClass = CONTROLLER_PATH.$class.'.php';
 
-//dividir el array en partes para trabajar con el metodo explode
-// $partes = explode('/', $url_array);
+//var_dump($rutaClass);
 
-//hacemos un switch para diferenciar el tipo de peticion
-// GET
-// POST
+if (file_exists($rutaClass)) {
 
-// $metodo = 'GET';
-echo $metodo;
+    require $rutaClass;
 
-if (!isset($_POST['controller']) || !isset($GET['controller'])){
+    $controller = new $class(); //dinamico
 
-    $metodo = 'home';
+    if ($action != null && method_exists($controller, $action)) {
 
-}
-switch ($metodo) {
-    
-    case 'GET':
+        $controller->$action();
 
-        $controllerName = $_GET['controller'] . 'Controller';
-        $actionName = $_GET['action'];
-        $controllerFile = CONTROLLER_PATH. $controllerName . '.php';
-        $array_datos = []; //aqui almacenaremos el resto de la url a partir del action
-
-        if (file_exists($controllerFile)) {
-
-            require_once $controllerFile;
-            $controllerInstance = new $controllerName;
-
-            // $controllerInstance->verDashboard();
-            //recogemos todos los datos de la url que venga por GET y luego en el controllador utilizamos la posicion que necesitemos
-            $array_datos = $_GET;
-
-            if (count($array_datos) > 2) { //tiene 3 o más parametros en la url 
-            //por ejemplo: index.php?controller=dashboard&action=verDashboardRol&rol=admin
-                $controllerInstance->$actionName($array_datos);
-            } else {
-                $controllerInstance->$actionName();
-            }
-        } else {   
-            die("Recurso no encontrado");
-        }
-        break;
-    
-    case 'POST':
-
-        $controllerName = $_POST['controller'] . 'Controller';
-        $actionName = $_POST['action'];
-        $controllerFile = CONTROLLER_PATH . $controllerName . '.php';
-        $array_datos = []; //aqui almacenaremos el resto de la url a partir del action
-
-        if (file_exists($controllerFile)) {
-
-            require_once $controllerFile;
-            $controllerInstance = new $controllerName;
-
-            // $controllerInstance->verDashboard();
-            //recogemos todos los datos de la url que venga por GET y luego en el controllador utilizamos la posicion que necesitemos
-            $array_datos = $_POST;
-
-            if (count($array_datos) > 2) { //tiene 3 o más parametros en la url 
-            //por ejemplo: index.php?controller=dashboard&action=verDashboardRol&rol=admin
-                $controllerInstance->$actionName($array_datos);
-            } else {
-                $controllerInstance->$actionName();
-            }
-        } else {   
-            die("Recurso no encontrado");
-        }
+    } else {
         
-        break;
+        echo "Error: no existe el metodo";
+    }
 
-
-        case 'home':
-            echo 'HOME';
-            require_once (CONTROLLER_PATH.'loginController.php');
-            $controller = new LoginController();
-            $controller->verLogin();
-            break;
-
-    default:
-        
-        //esto cuando tengamos el login redirigiremos a la pagina de inicio o de login si no tengo la sesion iniciada.
-        require_once (CONTROLLER_PATH.'loginController.php');
-        $controller = new LoginController();
-        $controller->verLogin();
-        break;
-
+} else {
+    echo "No existe la clase";
 }
 
 
-
-?>
