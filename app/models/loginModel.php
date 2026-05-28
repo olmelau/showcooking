@@ -7,14 +7,12 @@ class LoginModel{
     private $db;
      
     public function __construct(){
-
         $this->db = ConexionBD::conexion();
-
     }
 
     public function comprobarUsuario($username, $contrasena){
 
-        $sql = "SELECT u.id_usuario, u.id_rol, rol.nombre_rol
+        $sql = "SELECT u.id_usuario, u.username, u.contrasena, u.email, u.id_rol, rol.nombre_rol
                 FROM usuario as u 
                 INNER JOIN rol as rol on rol.id_rol = u.id_rol
                 WHERE username = :username AND contrasena = :contrasena";
@@ -27,7 +25,7 @@ class LoginModel{
 
         $stmt->execute();
 
-        $datos_usuario = $stmt->fetchAll();
+        $datos_usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $datos_usuario;
 

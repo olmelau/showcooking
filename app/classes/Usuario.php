@@ -8,6 +8,19 @@ class Usuario{
     private $email;
     private $id_rol;
 
+
+    
+    //constructor
+    public function __construct($id_usuario, $username, $contrasena, $email, $id_rol){
+
+         $this->id_usuario = $id_usuario;
+         $this->username = $username;
+         $this->contrasena = $contrasena;
+         $this->email = $email;
+         $this->id_rol = $id_rol;
+         
+    }
+
     //Getters
     public function getIdusuario(){
         return $this->id_usuario;

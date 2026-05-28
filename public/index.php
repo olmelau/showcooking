@@ -11,13 +11,13 @@ $partes = explode('/', $uri);
 // var_dump($uri);
 // var_dump($partes);
 
-$controllerUri = $partes[3] ?? "login"; //la parte de la uri que es el controlador -> api o home o cualquier otro controller que vaya a implementar
-$action = $partes[4] ?? "verLogin";  //accion o metodo que tiene que estar dentro del controlador
+$controllerUri = $partes[4] ?? "login"; //la parte de la uri que es el controlador -> api o home o cualquier otro controller que vaya a implementar
+$action = $partes[5] ?? "verLogin";  //accion o metodo que tiene que estar dentro del controlador
 $class = $controllerUri . "Controller";
 
 $rutaClass = CONTROLLER_PATH.$class.'.php';
 
-//var_dump($rutaClass);
+// var_dump($rutaClass);
 
 if (file_exists($rutaClass)) {
 
