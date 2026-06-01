@@ -13,4 +13,7 @@ define('CONTROLLER_PATH', APP_PATH . 'controllers/');
 define('MODEL_PATH', APP_PATH . 'models/');
 define('VIEW_PATH', APP_PATH . 'views/');
 
+//Rutas de las clases
+define('CLASSES_PATH', APP_PATH . 'classes/');
+
 ?>

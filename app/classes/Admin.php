@@ -1,11 +1,20 @@
 <?php 
 
+require_once 'Usuario.php';
+
 class Admin extends Usuario{
 
-    public function verUsuario(){
-        // $usuarios = new UserModel();
-        // $usuarios->getUsuarios();
-        // return $usuarios;
+ 
+    public function verPanel(){
+        require_once VIEW_PATH.'adminView.php';
+    
+    }
+        
+        public function verUsuario(){
+        require_once MODEL_PATH.'userModel.php';
+        $modelo = new UserModel();
+        $usuarios = $modelo->getUsuarios();
+        return $usuarios;
     }
     public function crearUsuario($usuarioNuevo){
 

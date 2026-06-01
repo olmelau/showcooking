@@ -2,17 +2,17 @@
 
 class Usuario{
 
-    private $id_usuario;
-    private $username;
-    private $contrasena;
-    private $email;
-    private $id_rol;
+    protected $id_usuario;
+    protected $username;
+    protected $contrasena;
+    protected $email;
+    protected $id_rol;
 
 
     
     //constructor
     public function __construct($id_usuario, $username, $contrasena, $email, $id_rol){
-
+         
          $this->id_usuario = $id_usuario;
          $this->username = $username;
          $this->contrasena = $contrasena;

@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 require_once(MODEL_PATH . 'loginModel.php');
 
@@ -19,7 +20,7 @@ class LoginController
 
     public function comprobarUsuarioExiste()
     {
-        session_start();
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: index.php');
             exit();
@@ -39,11 +40,13 @@ class LoginController
         $id_rol = $datos_usuario['id_rol'];
 
         if ($datos_usuario != false) {
-            
-            $usuario = new Usuario($id_usuario, $username, $contrasena, $email, $id_rol);
-            $this->comprobarRol($usuario);
-       
-            } else {
+
+
+            // require_once CLASSES_PATH . 'Usuario.php';    
+            // $usuario = new Usuario($id_usuario, $username, $contrasena, $email, $id_rol);
+            $this->comprobarRol($id_usuario, $username, $contrasena, $email, $id_rol);
+
+        } else {
 
             require_once VIEW_PATH . 'errorView.php';
         }
@@ -51,36 +54,42 @@ class LoginController
     }
 
 
-
-    //en el metodo comprobarRol->pasar al usuario y dependiendo del rol instanciar al hijo
-
-    public function comprobarRol($usuario)
+    public function comprobarRol($id_usuario, $username, $contrasena, $email, $id_rol)
     {
 
-        switch ($usuario->id_rol) {
+        switch ($id_rol) {
 
             case 1:
-
-                $admin = new Admin();
-                //llamar a la vista del admin
-
-
+                require_once CLASSES_PATH . 'Admin.php';
+                $admin = new Admin($id_usuario, $username, $contrasena, $email, $id_rol);
+                $_SESSION["admin"] = $admin;
+                // var_dump($admin);
+                header('Location:/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel');
+                // $admin->verPanel();
                 break;
-            case 2:
-                $cocinero = new Cocinero();
-  
-                break;
-  
-                case 3:
-                $visitante = new VisitanteRegistrado();
+                
+                case 2:
+                    require_once CLASSES_PATH . 'Cocinero.php';
+                    $cocinero = new Cocinero($id_usuario, $username, $contrasena, $email, $id_rol);
+                    header('Location:/desarrollo_servidor/Showcooking/public/index.php/cocinero/imprimirPanel');
+                    // $cocinero->verPanel();
+                    break;
+                    
+                    case 3:
+                        require_once CLASSES_PATH . 'VisitanteRegistrado.php';
+                        $visitante = new VisitanteRegistrado($id_usuario, $username, $contrasena, $email, $id_rol);
+                        header('Location:/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel');
+                // $visitante->verPanel();
                 break;
 
             default:
+                // var_dump($usuario);
                 echo 'default';
                 break;
         }
 
     }
+
 }
 
 ?>

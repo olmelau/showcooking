@@ -1,0 +1,1 @@
+<p>cocinero view</p>

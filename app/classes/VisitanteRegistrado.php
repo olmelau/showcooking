@@ -1,8 +1,14 @@
 <?php
 
+require_once 'Usuario.php';
+
 class VisitanteRegistrado extends Usuario{
 
     private $listaFavoritos = [];
+
+    public function verPanel(){
+        require_once VIEW_PATH.'visitanteView.php';
+    }
 
     public function verVideos(){
         //se podran ver los videos que sean publicos
