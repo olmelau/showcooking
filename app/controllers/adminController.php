@@ -16,6 +16,22 @@ class AdminController{
 
     }
 
+    public function crearUsuarioFormulario(){
+        require_once VIEW_PATH.'crearUsuarioView.php';
+        }
+        
+        public function crearUsuario(){
+
+           $username = $_POST['username'];
+           $contrasena = $_POST['contrasena'];
+           $email = $_POST['email'];
+           $id_rol = $_POST['id_rol'];
+
+            $admin = $_SESSION['admin'];
+            $admin->crearUsuario($username, $contrasena, $email, $id_rol);
+            
+    }
+
 
     public function imprimirUsuarios($usuarios){
 

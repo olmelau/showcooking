@@ -16,11 +16,19 @@ class Admin extends Usuario{
         $usuarios = $modelo->getUsuarios();
         return $usuarios;
     }
-    public function crearUsuario($usuarioNuevo){
+    public function crearUsuario($username, $contrasena, $email, $id_rol){
+        require_once MODEL_PATH.'userModel.php';
+        $modelo = new UserModel();
+        $nuevoUser = $modelo->insertarUsuario($username, $contrasena, $email, $id_rol);
 
-        //usuario = new UserModel();
-        //usuario->insertarUsuario($usuarioNnuevo);
-
+        if ($nuevoUser) {
+            echo 'usuario creado';
+           echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+        }    else {
+            require_once VIEW_PATH.'errorView.php';
+        }
 
     }
     public function eliminarUsuario($usuario){

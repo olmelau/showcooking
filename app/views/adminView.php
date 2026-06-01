@@ -5,7 +5,10 @@
 <form action="/desarrollo_servidor/Showcooking/public/index.php/admin/verUsuarios">
     <button>Ver usuarios</button>
 </form>
-<button>Crear usuarios</button>
+
+<form action="/desarrollo_servidor/Showcooking/public/index.php/admin/crearUsuarioFormulario">
+    <button>Crear usuarios</button>
+</form>
 <button>Eliminar usuarios</button>
 <button>Modificar Perfil usuarios</button>
 
