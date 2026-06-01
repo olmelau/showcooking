@@ -9,3 +9,7 @@
     <button type="submit">Eliminar usuario</button>
 
 </form>
+
+<form action='/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel'>
+    <button>Volver Atrás</button>
+</form>

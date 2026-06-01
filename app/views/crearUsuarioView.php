@@ -21,10 +21,10 @@
         <option value="3">visitante registrado</option>
     </select>
     <br><br>
-
+    
     <button type="submit">Crear usuario</button>
+</form>
 
-
-
-
+<form action='/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel'>
+    <button>Volver Atrás</button>
 </form>

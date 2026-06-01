@@ -20,6 +20,8 @@ class AdminController
     {
         require_once VIEW_PATH . 'crearUsuarioView.php';
     }
+   
+
 
     public function crearUsuario()
     {
@@ -62,6 +64,17 @@ class AdminController
             $this->volverAtras();
         }
     }
+
+     public function modificarUsuarioFormulario()
+    {
+        require_once VIEW_PATH . 'modificarUsuarioView.php';
+    }
+
+    public function modificarUsuario(){
+        echo "modificar";
+
+    }
+
 
 
     public function imprimirUsuarios($usuarios)

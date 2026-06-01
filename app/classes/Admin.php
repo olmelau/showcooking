@@ -36,11 +36,15 @@ class Admin extends Usuario{
            return false;
         }
     }
+
     public function modificarUsuario($usuario){
-
-        //$usuario = new UserModel();
-        //$usuario->updateUsuario($usuario);
-
+        //$modelo = new UserModel();
+        //$modificarOK->actualizarUsuario($usuario);
+    //       if ($modificarOK) {
+    //         return true;
+    //     }    else {
+    //        return false;
+    //     }
     }
 
 

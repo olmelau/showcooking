@@ -12,8 +12,10 @@
 <form action="/desarrollo_servidor/Showcooking/public/index.php/admin/eliminarUsuarioFormulario">
     <button>Eliminar usuario</button>
 </form>
+<form action="/desarrollo_servidor/Showcooking/public/index.php/admin/modificarUsuarioFormulario">
+    <button>Modificar Perfil Usuario</button>
+</form>
 
-<button>Modificar Perfil usuarios</button>
 
 <p>Gestión Categorías</p>
 
