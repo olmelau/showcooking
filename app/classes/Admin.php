@@ -1,6 +1,7 @@
 <?php 
 
 require_once 'Usuario.php';
+require_once MODEL_PATH.'userModel.php';
 
 class Admin extends Usuario{
 
@@ -11,29 +12,29 @@ class Admin extends Usuario{
     }
         
         public function verUsuario(){
-        require_once MODEL_PATH.'userModel.php';
         $modelo = new UserModel();
         $usuarios = $modelo->getUsuarios();
         return $usuarios;
     }
     public function crearUsuario($username, $contrasena, $email, $id_rol){
-        require_once MODEL_PATH.'userModel.php';
         $modelo = new UserModel();
-        $nuevoUser = $modelo->insertarUsuario($username, $contrasena, $email, $id_rol);
+        $insertarOK = $modelo->insertarUsuario($username, $contrasena, $email, $id_rol);
 
-        if ($nuevoUser) {
-            echo 'usuario creado';
-           echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel'>
-                <button>Volver Atrás</button>    
-            </form>";
+        if ($insertarOK) {
+            return true;
         }    else {
-            require_once VIEW_PATH.'errorView.php';
+           return false;
         }
 
     }
     public function eliminarUsuario($usuario){
-        //$usuario = new UserModel();
-        //$usuario->borrarUsuario($usuario);
+        $modelo = new UserModel();
+        $borrarOK = $modelo->borrarUsuario($usuario);
+         if ($borrarOK) {
+            return true;
+        }    else {
+           return false;
+        }
     }
     public function modificarUsuario($usuario){
 

@@ -31,7 +31,18 @@ class UserModel{
 
         return $stmt->execute();
 
-        
+    }
+
+    public function borrarUsuario($username){
+
+        $sql = "DELETE FROM usuario
+                WHERE (username = :username)";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+
+        return $stmt->execute();
+
 
     }
 

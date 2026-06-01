@@ -7,9 +7,12 @@
 </form>
 
 <form action="/desarrollo_servidor/Showcooking/public/index.php/admin/crearUsuarioFormulario">
-    <button>Crear usuarios</button>
+    <button>Crear usuario</button>
 </form>
-<button>Eliminar usuarios</button>
+<form action="/desarrollo_servidor/Showcooking/public/index.php/admin/eliminarUsuarioFormulario">
+    <button>Eliminar usuario</button>
+</form>
+
 <button>Modificar Perfil usuarios</button>
 
 <p>Gestión Categorías</p>

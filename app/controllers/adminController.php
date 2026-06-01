@@ -1,13 +1,13 @@
 <?php
 
-require_once CLASSES_PATH.'Admin.php';
+require_once CLASSES_PATH . 'Admin.php';
 session_start();
 
-class AdminController{
+class AdminController
+{
 
-
-    
-    public function verUsuarios(){
+    public function verUsuarios()
+    {
         $admin = $_SESSION['admin'];
         $usuarios = $admin->verUsuario();
 
@@ -16,26 +16,58 @@ class AdminController{
 
     }
 
-    public function crearUsuarioFormulario(){
-        require_once VIEW_PATH.'crearUsuarioView.php';
+    public function crearUsuarioFormulario()
+    {
+        require_once VIEW_PATH . 'crearUsuarioView.php';
+    }
+
+    public function crearUsuario()
+    {
+
+        $username = $_POST['username'];
+        $contrasena = $_POST['contrasena'];
+        $email = $_POST['email'];
+        $id_rol = $_POST['id_rol'];
+
+        $admin = $_SESSION['admin'];
+        // $admin->crearUsuario($username, $contrasena, $email, $id_rol);
+        $resultado = $admin->crearUsuario($username, $contrasena, $email, $id_rol);
+
+        if ($resultado === true) {
+            echo "Usuario Creado";
+            // $this->imprimirPanel();
+            $this->volverAtras();
+        } else {
+            echo "Error al insertar usuario";
+            $this->volverAtras();
         }
+
+
+    }
+
+    public function eliminarUsuarioFormulario(){
+        require_once VIEW_PATH . 'borrarUsuarioView.php';
+    }
+
+    public function borrarUsuario(){
+        $username = $_POST['username'];
+        $admin = $_SESSION['admin'];
+        $resultado = $admin->eliminarUsuario($username);
         
-        public function crearUsuario(){
-
-           $username = $_POST['username'];
-           $contrasena = $_POST['contrasena'];
-           $email = $_POST['email'];
-           $id_rol = $_POST['id_rol'];
-
-            $admin = $_SESSION['admin'];
-            $admin->crearUsuario($username, $contrasena, $email, $id_rol);
-            
+        if ($resultado === true) {
+            echo "Usuario Borrado";
+            $this->volverAtras();
+        } else {
+            echo "Error al borrar usuario";
+            $this->volverAtras();
+        }
     }
 
 
-    public function imprimirUsuarios($usuarios){
+    public function imprimirUsuarios($usuarios)
+    {
 
-     if (empty($usuarios)) {
+        if (empty($usuarios)) {
             echo "<p>No hay usuarios para mostrar.</p>";
             return;
         }
@@ -52,7 +84,7 @@ class AdminController{
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
-        
+
         foreach ($usuarios as $usuario) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($usuario['id_usuario']) . "</td>";
@@ -61,22 +93,22 @@ class AdminController{
             echo "<td>" . htmlspecialchars($usuario['id_rol']) . "</td>";
             echo "</tr>";
         }
-        
         echo "</tbody>";
         echo "</table>";
     }
 
-    public function imprimirPanel(){
+    public function imprimirPanel()
+    {
         $admin = $_SESSION['admin'];
         $admin->verPanel();
     }
 
-        public function volverAtras(){
-            
-            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel'>
+    public function volverAtras()
+    {
+        echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel'>
                 <button>Volver Atrás</button>    
             </form>";
-        }
+    }
 
 }
 
