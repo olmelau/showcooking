@@ -19,7 +19,14 @@
 
 <p>Gestión Categorías</p>
 
-<button>Ver Categorías</button>
-<button>Crear Categoría</button>
-<button>Eliminar Categoría</button>
+<form action="/desarrollo_servidor/Showcooking/public/index.php/admin/verCategorias">
+    <button>Ver Categorías</button>
+</form>
+<form action="/desarrollo_servidor/Showcooking/public/index.php/admin/crearCategoriaFormulario">
+    <button>Crear Categoría</button>
+</form>
+<form action="/desarrollo_servidor/Showcooking/public/index.php/admin/eliminarCategoriaFormulario">
+    <button>Eliminar Categoría</button>
+</form>
+
 <button>Actualizar Categoría</button>

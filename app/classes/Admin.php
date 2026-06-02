@@ -37,15 +37,50 @@ class Admin extends Usuario{
         }
     }
 
-    public function modificarUsuario($usuario){
-        //$modelo = new UserModel();
-        //$modificarOK->actualizarUsuario($usuario);
-    //       if ($modificarOK) {
-    //         return true;
-    //     }    else {
-    //        return false;
-    //     }
+    public function editarUsuario($username, $username_nuevo, $contrasena_nueva, $email_nuevo, $id_rol_nuevo){
+        $modelo = new UserModel();
+        $modificarOK = $modelo->actualizarUsuario($username, $username_nuevo, $contrasena_nueva, $email_nuevo, $id_rol_nuevo);
+          
+        if ($modificarOK) {
+            return true;
+        }    else {
+           return false;
+        }
     }
+
+    public function verCategorias(){
+        $modelo = new UserModel();
+        $categorias = $modelo->getCategorias();
+        return $categorias;
+    }
+
+    public function crearCategoria($nombre_categoria){
+
+    $modelo = new UserModel();
+    $insertarOK = $modelo->insertarCategoria($nombre_categoria);
+
+    if ($insertarOK) {
+            return true;
+        }    else {
+           return false;
+        }
+
+    }
+
+    public function eliminarCategoria ($categoria){
+        $modelo = new UserModel();
+        $eliminarOK = $modelo->eliminarCategoria($categoria);
+
+          if ($eliminarOK) {
+            return true;
+        }    else {
+           return false;
+        }
+
+    }
+
+
+
 
 
 

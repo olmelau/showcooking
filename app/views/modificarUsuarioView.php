@@ -25,7 +25,7 @@
     </select>
     <br><br>
     
-    <button type="submit">Crear usuario</button>
+    <button type="submit">Editar usuario</button>
 </form>
 
 <form action='/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel'>

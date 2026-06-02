@@ -71,6 +71,7 @@ class LoginController
                 case 2:
                     require_once CLASSES_PATH . 'Cocinero.php';
                     $cocinero = new Cocinero($id_usuario, $username, $contrasena, $email, $id_rol);
+                    $_SESSION["cocinero"] = $cocinero;
                     header('Location:/desarrollo_servidor/Showcooking/public/index.php/cocinero/imprimirPanel');
                     // $cocinero->verPanel();
                     break;
@@ -78,6 +79,7 @@ class LoginController
                     case 3:
                         require_once CLASSES_PATH . 'VisitanteRegistrado.php';
                         $visitante = new VisitanteRegistrado($id_usuario, $username, $contrasena, $email, $id_rol);
+                        $_SESSION["visitante"] = $visitante;
                         header('Location:/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel');
                 // $visitante->verPanel();
                 break;

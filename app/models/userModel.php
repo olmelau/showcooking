@@ -8,16 +8,14 @@ class UserModel{
         $this->db = ConexionBD::conexion();
     }
 
+    //-------------------------------- USUARIOS ----------------------------
     public function getUsuarios(){
         //devuelve todos los usuarios
         $sql = "SELECT * FROM usuario";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
     }
-
 
     public function insertarUsuario($username, $contrasena, $email, $id_rol){
         //añade un usuario a la tabla
@@ -42,8 +40,51 @@ class UserModel{
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
 
         return $stmt->execute();
+    }
+
+    public function actualizarUsuario($username, $username_nuevo, $contrasena_nueva, $email_nuevo, $id_rol_nuevo){
 
 
+        $sql = "UPDATE usuario
+                SET username = :username_nuevo, contrasena = :contrasena_nueva, email = :email_nuevo, id_rol = :id_rol_nuevo
+                WHERE username = :username";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':username_nuevo', $username_nuevo, PDO::PARAM_STR);
+        $stmt->bindParam(':contrasena_nueva', $contrasena_nueva, PDO::PARAM_STR);
+        $stmt->bindParam(':email_nuevo', $email_nuevo, PDO::PARAM_STR);
+        $stmt->bindParam(':id_rol_nuevo', $id_rol_nuevo, PDO::PARAM_INT);
+
+        return $stmt->execute();
+
+    }
+
+    //-------------------------------- CATEGORIAS ----------------------------
+    public function getCategorias(){
+
+        $sql = "SELECT * FROM categoria";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function insertarCategoria($nombre_categoria){
+        $sql = "INSERT INTO categoria (nombre_categoria)
+                VALUES (:nombre_categoria)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':nombre_categoria', $nombre_categoria, PDO::PARAM_STR);
+        return $stmt->execute();
+
+    }
+
+    public function eliminarCategoria($categoria){
+
+        $sql = "DELETE FROM categoria
+                WHERE (nombre_categoria = :categoria)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
+        return $stmt->execute();
     }
 
 }
