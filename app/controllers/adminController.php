@@ -131,7 +131,7 @@ class AdminController
 
     public function eliminarCategoriaFormulario()
     {
-        require_once VIEW_PATH.'borrarCategoriaView.php';
+        require_once VIEW_PATH . 'borrarCategoriaView.php';
     }
 
 
@@ -154,7 +154,22 @@ class AdminController
     }
     public function actualizarCategoria()
     {
+        $nombre_categoria = $_POST['nombre_categoria'];
+        $nombre_categoria_nuevo = $_POST['nombre_categoria_nuevo'];
+        $admin = $_SESSION['admin'];
+        $resultado = $admin->modificarCategoria($nombre_categoria, $nombre_categoria_nuevo);
+        if ($resultado === true) {
+            echo "Categoría Modificada";
+            $this->volverAtras();
+        } else {
+            echo "Error al modificar categoría";
+            $this->volverAtras();
+        }
 
+    }
+    public function actualizarCategoriaFormulario()
+    {
+        require_once VIEW_PATH . 'modificarCategoriaView.php';
     }
 
     //------------------------------- MÉTODOS IMPRIMIR ---------------------------

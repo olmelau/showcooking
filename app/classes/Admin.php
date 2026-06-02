@@ -67,7 +67,7 @@ class Admin extends Usuario{
 
     }
 
-    public function eliminarCategoria ($categoria){
+    public function eliminarCategoria($categoria){
         $modelo = new UserModel();
         $eliminarOK = $modelo->eliminarCategoria($categoria);
 
@@ -75,6 +75,20 @@ class Admin extends Usuario{
             return true;
         }    else {
            return false;
+        }
+
+    }
+
+    public function modificarCategoria($nombre_categoria, $nombre_categoria_nuevo){
+
+        $modelo = new UserModel();
+        $modificarOK = $modelo->actualizarCategoria($nombre_categoria, $nombre_categoria_nuevo);
+        
+        if ($modificarOK) {
+            return true;
+
+        } else{
+            return false;
         }
 
     }

@@ -79,13 +79,26 @@ class UserModel{
     }
 
     public function eliminarCategoria($categoria){
-
         $sql = "DELETE FROM categoria
                 WHERE (nombre_categoria = :categoria)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
         return $stmt->execute();
     }
+
+    public function actualizarCategoria($nombre_categoria, $nombre_categoria_nuevo){
+
+        $sql = "UPDATE categoria
+                SET nombre_categoria = :nombre_categoria_nuevo
+                WHERE nombre_categoria = :nombre_categoria";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':nombre_categoria', $nombre_categoria, PDO::PARAM_STR);
+        $stmt->bindParam(':nombre_categoria_nuevo', $nombre_categoria_nuevo, PDO::PARAM_STR);
+        return $stmt->execute();
+
+    }
+
 
 }
 

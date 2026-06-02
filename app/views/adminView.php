@@ -28,5 +28,6 @@
 <form action="/desarrollo_servidor/Showcooking/public/index.php/admin/eliminarCategoriaFormulario">
     <button>Eliminar Categoría</button>
 </form>
-
-<button>Actualizar Categoría</button>
+<form action="/desarrollo_servidor/Showcooking/public/index.php/admin/actualizarCategoriaFormulario">
+    <button>Actualizar Categoría</button>
+</form>
