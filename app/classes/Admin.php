@@ -86,7 +86,6 @@ class Admin extends Usuario{
         
         if ($modificarOK) {
             return true;
-
         } else{
             return false;
         }

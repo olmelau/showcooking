@@ -61,8 +61,9 @@ class LoginController
 
             case 1:
                 require_once CLASSES_PATH . 'Admin.php';
+                session_start();
                 $admin = new Admin($id_usuario, $username, $contrasena, $email, $id_rol);
-                $_SESSION["admin"] = $admin;
+                $_SESSION['usuario'] = $admin;
                 // var_dump($admin);
                 header('Location:/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel');
                 // $admin->verPanel();
@@ -70,16 +71,18 @@ class LoginController
                 
                 case 2:
                     require_once CLASSES_PATH . 'Cocinero.php';
+                    session_start();
                     $cocinero = new Cocinero($id_usuario, $username, $contrasena, $email, $id_rol);
-                    $_SESSION["cocinero"] = $cocinero;
+                    $_SESSION['usuario'] = $cocinero;
                     header('Location:/desarrollo_servidor/Showcooking/public/index.php/cocinero/imprimirPanel');
                     // $cocinero->verPanel();
                     break;
                     
                     case 3:
                         require_once CLASSES_PATH . 'VisitanteRegistrado.php';
+                        session_start();
                         $visitante = new VisitanteRegistrado($id_usuario, $username, $contrasena, $email, $id_rol);
-                        $_SESSION["visitante"] = $visitante;
+                        $_SESSION['usuario'] = $visitante;
                         header('Location:/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel');
                 // $visitante->verPanel();
                 break;

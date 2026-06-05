@@ -1,17 +1,32 @@
 <?php
 
 require_once CLASSES_PATH . 'Admin.php';
+require_once CLASSES_PATH . 'VisitanteRegistrado.php';
+require_once CLASSES_PATH . 'Cocinero.php';
 session_start();
 
 class AdminController
 {
-    //hacer metodo comprobarAdmin(){}
 
+    public function comprobarUsuario()
+    {
+
+        $admin = $_SESSION['usuario'];
+        $id_rol = $admin->getIdRol();
+        // var_dump($id_rol);
+
+        if ($id_rol != 1) {
+            session_destroy();
+            header('Location:/desarrollo_servidor/Showcooking/public/index.php');
+            exit();
+        }
+    }
 
     //-----------------------------  GESTION DE USUARIOS ----------------------
     public function verUsuarios()
     {
-        $admin = $_SESSION['admin'];
+        $this->comprobarUsuario();
+        $admin = $_SESSION['usuario'];
         $usuarios = $admin->verUsuario();
 
         // var_dump($usuarios);
@@ -21,6 +36,8 @@ class AdminController
 
     public function crearUsuarioFormulario()
     {
+
+        $this->comprobarUsuario();
         require_once VIEW_PATH . 'crearUsuarioView.php';
     }
 
@@ -28,13 +45,14 @@ class AdminController
 
     public function crearUsuario()
     {
+        $this->comprobarUsuario();
 
         $username = $_POST['username'];
         $contrasena = $_POST['contrasena'];
         $email = $_POST['email'];
         $id_rol = $_POST['id_rol'];
 
-        $admin = $_SESSION['admin'];
+        $admin = $_SESSION['usuario'];
         // $admin->crearUsuario($username, $contrasena, $email, $id_rol);
         $resultado = $admin->crearUsuario($username, $contrasena, $email, $id_rol);
 
@@ -52,13 +70,16 @@ class AdminController
 
     public function eliminarUsuarioFormulario()
     {
+        $this->comprobarUsuario();
         require_once VIEW_PATH . 'borrarUsuarioView.php';
     }
 
     public function borrarUsuario()
     {
+
+        $this->comprobarUsuario();
         $username = $_POST['username'];
-        $admin = $_SESSION['admin'];
+        $admin = $_SESSION['usuario'];
         $resultado = $admin->eliminarUsuario($username);
 
         if ($resultado === true) {
@@ -72,11 +93,15 @@ class AdminController
 
     public function modificarUsuarioFormulario()
     {
+
+        $this->comprobarUsuario();
         require_once VIEW_PATH . 'modificarUsuarioView.php';
     }
 
     public function modificarUsuario()
     {
+
+        $this->comprobarUsuario();
 
         $username = $_POST['username'];
         $username_nuevo = $_POST['username_nuevo'];
@@ -84,7 +109,7 @@ class AdminController
         $email_nuevo = $_POST['email_nuevo'];
         $id_rol_nuevo = $_POST['id_rol_nuevo'];
 
-        $admin = $_SESSION['admin'];
+        $admin = $_SESSION['usuario'];
         $resultado = $admin->editarUsuario($username, $username_nuevo, $contrasena_nueva, $email_nuevo, $id_rol_nuevo);
 
         if ($resultado === true) {
@@ -99,7 +124,9 @@ class AdminController
     //----------------------------- GESTION DE CATEGORIAS ----------------------
     public function verCategorias()
     {
-        $admin = $_SESSION['admin'];
+
+        $this->comprobarUsuario();
+        $admin = $_SESSION['usuario'];
         $categorias = $admin->verCategorias();
         $this->imprimirCategorias($categorias);
 
@@ -108,14 +135,18 @@ class AdminController
 
     public function crearCategoriaFormulario()
     {
+
+        $this->comprobarUsuario();
         require_once VIEW_PATH . 'crearCategoriaView.php';
 
     }
     public function crearCategoria()
     {
+
+        $this->comprobarUsuario();
         $nombre_categoria = $_POST['nombre_categoria'];
 
-        $admin = $_SESSION['admin'];
+        $admin = $_SESSION['usuario'];
 
         $resultado = $admin->crearCategoria($nombre_categoria);
 
@@ -131,6 +162,8 @@ class AdminController
 
     public function eliminarCategoriaFormulario()
     {
+
+        $this->comprobarUsuario();
         require_once VIEW_PATH . 'borrarCategoriaView.php';
     }
 
@@ -138,8 +171,10 @@ class AdminController
 
     public function borrarCategoria()
     {
+
+        $this->comprobarUsuario();
         $categoria = $_POST['nombre_categoria'];
-        $admin = $_SESSION['admin'];
+        $admin = $_SESSION['usuario'];
         $resultado = $admin->eliminarCategoria($categoria);
 
         if ($resultado === true) {
@@ -154,10 +189,13 @@ class AdminController
     }
     public function actualizarCategoria()
     {
+
+        $this->comprobarUsuario();
         $nombre_categoria = $_POST['nombre_categoria'];
         $nombre_categoria_nuevo = $_POST['nombre_categoria_nuevo'];
-        $admin = $_SESSION['admin'];
+        $admin = $_SESSION['usuario'];
         $resultado = $admin->modificarCategoria($nombre_categoria, $nombre_categoria_nuevo);
+
         if ($resultado === true) {
             echo "Categoría Modificada";
             $this->volverAtras();
@@ -169,12 +207,16 @@ class AdminController
     }
     public function actualizarCategoriaFormulario()
     {
+
+        $this->comprobarUsuario();
         require_once VIEW_PATH . 'modificarCategoriaView.php';
     }
 
     //------------------------------- MÉTODOS IMPRIMIR ---------------------------
     public function imprimirUsuarios($usuarios)
     {
+
+        $this->comprobarUsuario();
 
         if (empty($usuarios)) {
             echo "<p>No hay usuarios para mostrar.</p>";
@@ -208,12 +250,16 @@ class AdminController
 
     public function imprimirPanel()
     {
-        $admin = $_SESSION['admin'];
+
+        $this->comprobarUsuario();
+        $admin = $_SESSION['usuario'];
         $admin->verPanel();
     }
 
     public function imprimirCategorias($categorias)
     {
+        $this->comprobarUsuario();
+
         if (empty($categorias)) {
             echo "<p>No hay categorias para mostrar.</p>";
             return;

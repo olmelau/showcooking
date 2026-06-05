@@ -1,7 +1,6 @@
 <?php
 
 class Usuario{
-
     protected $id_usuario;
     protected $username;
     protected $contrasena;
@@ -57,6 +56,7 @@ class Usuario{
    }
 
    public function comprobarCredenciales(){
+
    }
 
 

@@ -99,7 +99,35 @@ class UserModel{
 
     }
 
+    // -------------------------------- VISITANTE ----------------------------
+    public function valorarShowcooking($titulo, $valoracion, $id_usuario){
 
+        $sql = "SELECT id_showcooking FROM showcooking
+                WHERE titulo = :titulo";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+        $stmt->execute();
+        $id_showcooking = $stmt->fetchColumn();
+
+
+        $sql2 = "INSERT INTO valora (id_usuario, id_showcooking, valoracion, fecha)
+                 VALUES (:id_usuario, :id_showcooking, :valoracion, SYSDATE())";
+        $stmt = $this->db->prepare($sql2);
+        $stmt->bindParam(':id_showcooking', $id_showcooking, PDO::PARAM_INT);
+        $stmt->bindParam(':valoracion', $valoracion, PDO::PARAM_INT);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $valorarOK  = $stmt->execute();
+
+        if ($valorarOK) {
+           return true;
+        } else{
+            return false;
+        }
+
+        
+
+
+    }
 }
 
 ?>
