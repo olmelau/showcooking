@@ -7,17 +7,17 @@ require_once CLASSES_PATH . 'Cocinero.php';
 
 session_start();
 
-class VisitanteController
+class CocineroController
 {
 
     public function comprobarUsuario()
     {
 
-        $visitante = $_SESSION['usuario'];
-        $id_rol = $visitante->getIdRol();
+        $cocinero = $_SESSION['usuario'];
+        $id_rol = $cocinero->getIdRol();
         // var_dump($id_rol);
 
-        if ($id_rol != 3) {
+        if ($id_rol != 2) {
             session_destroy();
             header('Location:/desarrollo_servidor/Showcooking/public/index.php');
             exit();
@@ -34,35 +34,14 @@ class VisitanteController
 
     }
 
-    public function valorarShowcooking()
-    {
-
-
-        $this->comprobarUsuario();
-
-        $titulo = $_POST['titulo'];
-        $valoracion = $_POST['valoracion'];
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($titulo) && isset($valoracion)) {
-            $visitante = $_SESSION['usuario'];
-            $id_usuario = $visitante->getIdusuario();
-            $visitante->puntuarShowcooking($titulo, $valoracion, $id_usuario);
-        } else {
-            echo "inserte los datos";
-        }
-    }
-
-    
     //--------------------------------- CERRAR SESION ----------------------------
 
-        public function cerrarSesion(){
-
+    public function cerrarSesion()
+    {
         Usuario::cerrarSesion();
-        
+
     }
 
 }
-
-
 
 ?>

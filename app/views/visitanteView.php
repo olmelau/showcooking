@@ -22,7 +22,7 @@
 </form>
 
 <!-- Cerrar Sesion -->
-<form action="/desarrollo_servidor/Showcooking/public/index.php/visitante/cerrarSesion">
+<form action="/desarrollo_servidor/Showcooking/public/index.php/visitante/cerrarSesion" method="POST">
     <button>Cerrar Sesión</button>
 </form>
 

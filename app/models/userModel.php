@@ -124,9 +124,6 @@ class UserModel{
             return false;
         }
 
-        
-
-
     }
 }
 

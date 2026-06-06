@@ -287,12 +287,21 @@ class AdminController
     }
 
     //--------------------------------- VOLVER ATRAS ----------------------------
-
+    
     public function volverAtras()
     {
         echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/admin/imprimirPanel'>
                 <button>Volver Atrás</button>    
             </form>";
+    }
+    
+    //--------------------------------- CERRAR SESION ----------------------------
+
+        public function cerrarSesion(){
+
+        Usuario::cerrarSesion();
+        
+    
     }
 
 }

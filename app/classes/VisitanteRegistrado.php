@@ -5,8 +5,10 @@ require_once MODEL_PATH . 'userModel.php';
 
 class VisitanteRegistrado extends Usuario
 {
+private $admin;
 
-    private $listaFavoritos = [];
+
+private $listaFavoritos = [];
 
     public function verPanel()
     {
@@ -38,9 +40,10 @@ class VisitanteRegistrado extends Usuario
 
     }
 
-    public function anadirFavorito()
+    public function anadirFavorito($listaFavoritos)
     {
         //se añadira el favorito al array $listaFavoritos
+        // $listaFavoritos->push();
     }
 
 

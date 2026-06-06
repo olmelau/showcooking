@@ -31,3 +31,8 @@
 <form action="/desarrollo_servidor/Showcooking/public/index.php/admin/actualizarCategoriaFormulario">
     <button>Actualizar Categoría</button>
 </form>
+
+<!-- Cerrar Sesion -->
+<form action="/desarrollo_servidor/Showcooking/public/index.php/admin/cerrarSesion" method="POST">
+    <button>Cerrar Sesión</button>
+</form>

@@ -2,25 +2,28 @@
 
 // require_once CONFIG_PATH.'conexionBaseDatos.php';
 require_once MODEL_PATH . 'showcookingModel.php';
+require_once CLASSES_PATH . 'Usuario.php';
 
+session_start();
 class ApiController
 {
-
 
     //metodo devolver listado showcooking
     public function showcooking()
     {
+        $usuario = $_SESSION['usuario'];
+        $id_rol = $usuario->getIdRol();
+        $id_usuario = $usuario->getIdUsuario();
 
         $showCookingModel = new ShowcookingModel();
         
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            # code...
-            $showCooking = $showCookingModel->listarShowCooking();
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($id_rol)) {
+            $showCooking = $showCookingModel->listarShowCooking($id_rol, $id_usuario);
             header('Content-Type: application/json');
             echo json_encode($showCooking);
         }
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             //SI EXITE ACTUALIZO, Y SI NO, INSERTO
             // $_POST[]
@@ -29,7 +32,7 @@ class ApiController
             // header('Content-Type: application/json');
             // echo json_encode($showCooking);
 
-        }
+        // }
 
     }
 
