@@ -16,8 +16,17 @@ require_once 'Usuario.php';
     //editar showcooking
     }
 
-    public function cambiarVisibilidad(){
-    //pasar un video de publico a privado
+    public function cambiarEstadoShowcooking($id_usuario, $titulo, $publicado){
+
+        $model = new UserModel();
+        $cambiarEstadoOk = $model->cambiarEstadoshowcooking($id_usuario, $titulo, $publicado);
+    
+        if ($cambiarEstadoOk) {
+            return true;   
+        } else {
+            return false;
+        }
+    
     }
 
     public function verShowcookingPropios($id_usuario){
@@ -36,6 +45,19 @@ require_once 'Usuario.php';
         $showcookingOK = $modelo->insertarShowcookingNuevo($titulo, $desc, $url_youtube, $foto_url, $chefs, $categoria, $id_propietario);
 
         if ($showcookingOK) {
+            return true;   
+        } else {
+            return false;
+        }
+    }
+
+    public function actualizarShowcookingPropio($id_usuario, $titulo, $titulo_nuevo, $descripcion_nueva, $url_youtube_nueva, $foto_url_nueva, $chefs_nuevos, $categoria_nueva){
+
+        $modelo = new UserModel();
+        
+        $actualizarShowcookingOK = $modelo->actualizarShowcooking($id_usuario, $titulo, $titulo_nuevo, $descripcion_nueva, $url_youtube_nueva, $foto_url_nueva, $chefs_nuevos, $categoria_nueva);
+
+        if ($actualizarShowcookingOK) {
             return true;   
         } else {
             return false;

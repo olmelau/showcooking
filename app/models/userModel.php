@@ -236,6 +236,71 @@ class UserModel
         return $stmt->execute();
     }
 
+    public function actualizarShowcooking($id_usuario, $titulo, $titulo_nuevo, $descripcion_nueva, $url_youtube_nueva, $foto_url_nueva, $chefs_nuevos, $categoria_nueva)
+    {
+        // ID SHOWCOOKING
+        $sql_idshowcooking = "SELECT id_showcooking FROM showcooking WHERE titulo = :titulo AND id_propietario = :id_usuario";
+        $stmt = $this->db->prepare($sql_idshowcooking);
+        $stmt->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        $id_showcooking = $stmt->fetchColumn();
+
+        // ID CATEGORIA
+        $sql_idCategoria = "SELECT id_categoria FROM categoria WHERE nombre_categoria = :categoria_nueva";
+        $stmt = $this->db->prepare($sql_idCategoria);
+        $stmt->bindParam(':categoria_nueva', $categoria_nueva, PDO::PARAM_STR);
+        $stmt->execute();
+        $id_categoria_nueva = $stmt->fetchColumn();
+
+        //ACTUALZIAR TABLA
+        $sqlUpdate = "UPDATE showcooking
+                SET titulo = :titulo_nuevo, descripcion = :descripcion_nueva, url_youtube = :url_youtube_nueva, foto_url = :foto_url_nueva, chefs = :chefs_nuevos, id_categoria = :id_categoria_nueva
+                WHERE id_showcooking = :id_showcooking";
+
+        $stmt = $this->db->prepare($sqlUpdate);
+        $stmt->bindParam(':titulo_nuevo', $titulo_nuevo, PDO::PARAM_STR);
+        $stmt->bindParam(':descripcion_nueva', $descripcion_nueva, PDO::PARAM_STR);
+        $stmt->bindParam(':url_youtube_nueva', $url_youtube_nueva, PDO::PARAM_STR);
+        $stmt->bindParam(':foto_url_nueva', $foto_url_nueva, PDO::PARAM_STR);
+        $stmt->bindParam(':chefs_nuevos', $chefs_nuevos, PDO::PARAM_STR);
+        $stmt->bindParam(':id_categoria_nueva', $id_categoria_nueva, PDO::PARAM_INT);
+        $stmt->bindParam(':id_showcooking', $id_showcooking, PDO::PARAM_INT);
+
+        $showcookingOK = $stmt->execute();
+
+        return $showcookingOK;
+
+    }
+
+    public function cambiarEstadoshowcooking($id_usuario, $titulo, $publicado)
+    {
+
+        // ID SHOWCOOKING
+        $sql_idshowcooking = "SELECT id_showcooking FROM showcooking WHERE titulo = :titulo AND id_propietario = :id_usuario";
+        $stmt = $this->db->prepare($sql_idshowcooking);
+        $stmt->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        $id_showcooking = $stmt->fetchColumn();
+
+        $sqlUpdate = "UPDATE showcooking 
+                      SET publicado = :publicado
+                      WHERE id_showcooking = :id_showcooking";
+        $stmt = $this->db->prepare($sqlUpdate);
+        $stmt->bindParam(':publicado', $publicado, PDO::PARAM_BOOL);
+        $stmt->bindParam(':id_showcooking', $id_showcooking, PDO::PARAM_INT);
+
+
+        $cambiarEstadoOK = $stmt->execute();
+
+        return $cambiarEstadoOK;
+
+
+
+
+    }
+
 }
 
 ?>
