@@ -192,7 +192,8 @@ class UserModel
 
 
     //----------------------------------  COCINERO -----------------------------
-    public function getShowcookingPropio($id_usuario){
+    public function getShowcookingPropio($id_usuario)
+    {
 
         $sql = "SELECT * FROM showcooking
                 WHERE id_propietario = :id_usuario";
@@ -202,8 +203,37 @@ class UserModel
         $stmt->execute();
 
         $showcooking = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         return $showcooking;
+    }
+
+    public function insertarShowcookingNuevo($titulo, $descripcion, $url_youtube, $foto_url, $chefs, $nom_categoria, $id_propietario)
+    {
+        $sql = "SELECT id_categoria FROM categoria
+                WHERE nombre_categoria = :nombre_categoria";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindParam(':nombre_categoria', $nom_categoria, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $id_categoria = $stmt->fetchColumn();
+
+
+        $sqlInsert = "INSERT INTO showcooking (titulo, descripcion, url_youtube, fecha_creacion, foto_url, chefs, id_categoria, publicado, id_propietario)
+                VALUES (:titulo, :descripcion, :url_youtube, SYSDATE(), :foto_url , :chefs, :id_categoria, 0, :id_propietario)";
+
+        $stmt = $this->db->prepare($sqlInsert);
+        $stmt->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+        $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
+        $stmt->bindParam(':url_youtube', $url_youtube, PDO::PARAM_STR);
+        $stmt->bindParam(':foto_url', $foto_url, PDO::PARAM_STR);
+        $stmt->bindParam(':chefs', $chefs, PDO::PARAM_STR);
+        $stmt->bindParam(':id_categoria', $id_categoria, PDO::PARAM_INT);
+        $stmt->bindParam(':id_propietario', $id_propietario, PDO::PARAM_INT);
+
+
+        return $stmt->execute();
     }
 
 }

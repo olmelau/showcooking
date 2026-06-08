@@ -34,7 +34,8 @@ class CocineroController
 
     }
 
-    public function verShowcookingPropios(){
+    public function verShowcookingPropios()
+    {
 
         $cocinero = $_SESSION['usuario'];
         $this->comprobarUsuario();
@@ -46,10 +47,11 @@ class CocineroController
     }
 
 
-    public function imprimirShowcooking($showcookings){
+    public function imprimirShowcooking($showcookings)
+    {
 
 
-         $this->comprobarUsuario();
+        $this->comprobarUsuario();
         // var_dump($showcooking)
         if (empty($showcookings)) {
             echo "<p>No hay showcookings para mostrar.</p>";
@@ -57,15 +59,15 @@ class CocineroController
                 <button>Volver Atrás</button>    
             </form>";
             return;
-        } else{
+        } else {
 
-        echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/cocinero/imprimirPanel'>
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/cocinero/imprimirPanel'>
                 <button>Volver Atrás</button>    
             </form>";
 
             foreach ($showcookings as $showcooking) {
                 echo "<div>";
-                echo "<h1>".$showcooking['titulo']."</h1>";
+                echo "<h1>" . $showcooking['titulo'] . "</h1>";
                 echo "<iframe src='" . $showcooking['url_youtube'] . "' 
                 width='560' height='315' 
                 frameborder='0'>
@@ -75,6 +77,45 @@ class CocineroController
             }
 
         }
+    }
+
+    public function insertarShowcookingNuevo()
+    {
+
+
+        $titulo = $_POST['titulo'];
+        $desc = $_POST['descripcion'];
+        $url_youtube = $_POST['url_youtube'];
+        $foto_url = $_POST['foto_url'];
+        $chefs = $_POST['chefs'];
+        $categoria = $_POST['categoria'];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($titulo) && isset($desc) && isset($url_youtube) && isset($foto_url) && isset($chefs) && isset($categoria)) {
+           
+            $cocinero = $_SESSION['usuario'];
+            $this->comprobarUsuario();
+            $id_propietario = $cocinero->getIdusuario();
+    
+            $nuevoShowcooking = $cocinero->insertarShowcookingNuevo($titulo, $desc, $url_youtube, $foto_url, $chefs, $categoria, $id_propietario);
+
+            if ($nuevoShowcooking) {
+                echo 'Showcooking insertado correctamente';
+                 echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+            } else{
+                echo 'No se ha podido insertar';
+                 echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+            }
+        } else {
+            echo 'Completa todos los campos';
+        }
+
+
+
+
     }
 
     //--------------------------------- CERRAR SESION ----------------------------

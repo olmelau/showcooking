@@ -29,6 +29,20 @@ require_once 'Usuario.php';
     }
 
 
+    public function insertarShowcookingNuevo($titulo, $desc, $url_youtube, $foto_url, $chefs, $categoria, $id_propietario){
+
+        $modelo = new UserModel();
+        
+        $showcookingOK = $modelo->insertarShowcookingNuevo($titulo, $desc, $url_youtube, $foto_url, $chefs, $categoria, $id_propietario);
+
+        if ($showcookingOK) {
+            return true;   
+        } else {
+            return false;
+        }
+    }
+
+
 
 
 
