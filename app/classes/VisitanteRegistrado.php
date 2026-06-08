@@ -5,11 +5,7 @@ require_once MODEL_PATH . 'userModel.php';
 
 class VisitanteRegistrado extends Usuario
 {
-private $admin;
-
-
-private $listaFavoritos = [];
-
+  
     public function verPanel()
     {
         require_once VIEW_PATH . 'visitanteView.php';
@@ -57,11 +53,18 @@ private $listaFavoritos = [];
 
 
 
-    public function anadirFavorito($listaFavoritos)
+    public function insertarFavorito($id_usuario, $titulo)
     {
-        //se añadira el favorito al array $listaFavoritos
-        // $listaFavoritos->push();
-    }
+        $modelo = new UserModel();
+        $insertOk = $modelo->insertarFavorito($id_usuario, $titulo);
+    
+        if ($insertOk) {
+            return true;
+        }else {
+            return false;
+        }
+    
+        }
 
 
     public function traerFavoritos($id_usuario){

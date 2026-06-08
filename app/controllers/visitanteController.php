@@ -97,6 +97,34 @@ class VisitanteController
     }
 
 
+    public function insertarFavorito(){
+        
+        $visitante = $_SESSION['usuario'];
+        $this->comprobarUsuario();
+        $id_usuario = $visitante->getIdusuario();
+
+
+        $titulo = $_POST['titulo'];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($titulo)) {
+
+            $exito = $visitante->insertarFavorito($id_usuario, $titulo);
+
+            if ($exito) {
+            echo "Favorito Guardado.";
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+        } else {
+            echo "no se ha añadido a favoritos.";
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+        }
+
+        }
+    }
+
     public function verFavoritos(){
 
         $visitante = $_SESSION['usuario'];

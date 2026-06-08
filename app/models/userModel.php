@@ -176,6 +176,30 @@ class UserModel
         }
     }
 
+    public function insertarFavorito($id_usuario, $titulo)
+    {
+
+        $sql = "SELECT id_showcooking FROM showcooking WHERE titulo = :titulo";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+        $stmt->execute();
+        $id_showcooking = $stmt->fetchColumn();
+
+
+        $sqlInsert = "INSERT INTO favoritos (id_usuario, id_showcooking)
+                 VALUES (:id_usuario, :id_showcooking)";
+
+        $stmt = $this->db->prepare($sqlInsert);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':id_showcooking', $id_showcooking, PDO::PARAM_INT);
+
+        $insertOK = $stmt->execute();
+
+        return $insertOK;
+
+    }
+
 
     public function getFavoritos($id_usuario)
     {

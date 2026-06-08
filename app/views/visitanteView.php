@@ -1,5 +1,3 @@
-<p>visitante view</p>
-
 <!-- Ver Shocooking -->
 <form action="/desarrollo_servidor/Showcooking/public/index.php/visitante/verShowcooking" method="GET">
 <h3>Ver Showcookking</h3>    
@@ -14,6 +12,14 @@
     <label for="valoracion">Valoracion</label>
     <input type="number" name="valoracion" id="valoracion" min="1" max="5" placeholder="1-5">
     <button>Valorar  ShowCooking</button>
+</form>
+
+<!-- Añadir a Favoritos -->
+<form action="/desarrollo_servidor/Showcooking/public/index.php/visitante/insertarFavorito" method="POST">
+    <h3>Añadir Favorito</h3>
+    <label for="titulo">Título</label>
+    <input type="text" name="titulo" id="titulo" placeholder="titulo del showcooking">
+    <button>Añadir Favorito</button>
 </form>
 
 <!-- Lista de favoritos -->
