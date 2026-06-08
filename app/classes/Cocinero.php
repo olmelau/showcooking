@@ -20,6 +20,13 @@ require_once 'Usuario.php';
     //pasar un video de publico a privado
     }
 
+    public function verShowcookingPropios($id_usuario){
+        
+        $model = new UserModel();
+        $showcooking = $model->getShowcookingPropio($id_usuario);
+
+        return $showcooking;
+    }
 
 
 

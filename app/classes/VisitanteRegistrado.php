@@ -35,16 +35,43 @@ private $listaFavoritos = [];
 
     }
 
-    public function comentar()
-    {
+    public function comentarShowcooking($titulo, $comentario, $id_usuario){
+
+        $modelo = new UserModel();
+        $comentario = $modelo->insertarComentario($titulo, $comentario, $id_usuario);
+
+          if ($comentario) {
+            echo "Comentario publicado.";
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+        } else {
+            echo "no se ha publicado el comentario.";
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+        }
 
     }
+
+
+
 
     public function anadirFavorito($listaFavoritos)
     {
         //se añadira el favorito al array $listaFavoritos
         // $listaFavoritos->push();
     }
+
+
+    public function traerFavoritos($id_usuario){
+
+        $modelo = new UserModel();
+        $favoritos = $modelo->getFavoritos($id_usuario);
+
+        return $favoritos;
+    }
+
 
     public function verShowcooking(){
         

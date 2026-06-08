@@ -27,11 +27,54 @@ class CocineroController
     public function imprimirPanel()
     {
 
-        $visitante = $_SESSION['usuario'];
+        $cocinero = $_SESSION['usuario'];
         $this->comprobarUsuario();
-        $visitante->verPanel();
+        $cocinero->verPanel();
 
 
+    }
+
+    public function verShowcookingPropios(){
+
+        $cocinero = $_SESSION['usuario'];
+        $this->comprobarUsuario();
+        $id_usuario = $cocinero->getIdusuario();
+        $showcooking = $cocinero->verShowcookingPropios($id_usuario);
+
+        $this->imprimirShowcooking($showcooking);
+
+    }
+
+
+    public function imprimirShowcooking($showcookings){
+
+
+         $this->comprobarUsuario();
+        // var_dump($showcooking)
+        if (empty($showcookings)) {
+            echo "<p>No hay showcookings para mostrar.</p>";
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/cocinero/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+            return;
+        } else{
+
+        echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/cocinero/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+
+            foreach ($showcookings as $showcooking) {
+                echo "<div>";
+                echo "<h1>".$showcooking['titulo']."</h1>";
+                echo "<iframe src='" . $showcooking['url_youtube'] . "' 
+                width='560' height='315' 
+                frameborder='0'>
+                </iframe>";
+                //  echo "<a href='" . htmlspecialchars($showcooking['url_youtube']) . "' target='_blank'>Ver video en YouTube</a>";
+                echo "</div>";
+            }
+
+        }
     }
 
     //--------------------------------- CERRAR SESION ----------------------------

@@ -37,7 +37,6 @@ class VisitanteController
     public function valorarShowcooking()
     {
 
-
         $this->comprobarUsuario();
 
         $titulo = $_POST['titulo'];
@@ -97,6 +96,59 @@ class VisitanteController
 
     }
 
+
+    public function verFavoritos(){
+
+        $visitante = $_SESSION['usuario'];
+        $this->comprobarUsuario();
+
+        $id_usuario = $visitante->getIdusuario();
+        $favoritos = $visitante->traerFavoritos($id_usuario);
+
+        $this->imprimirFavoritos($favoritos);
+
+
+    }
+
+    public function imprimirFavoritos($favoritos){
+        $this->comprobarUsuario();
+
+        if (empty($favoritos)) {
+            echo "<p>No hay favoritos para mostrar.</p>";
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+            return;
+
+        } else{
+
+        echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+
+            echo "<h3>Lista de Favoritos</h3>";
+            foreach ($favoritos as $favorito) {
+                echo "<p>".$favorito['titulo']."</p>";
+            }
+
+        }
+    }
+
+
+    public function comentarShowcooking(){
+
+       
+        $titulo = $_POST['titulo'];
+        $comentario = $_POST['comentario'];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($titulo) && isset($comentario)) {
+            $visitante = $_SESSION['usuario'];
+            $id_usuario = $visitante->getIdusuario();
+            $visitante->comentarShowcooking($titulo, $comentario, $id_usuario);
+        } else {
+            echo "inserte los datos";
+        }
+    }
 
     //--------------------------------- CERRAR SESION ----------------------------
 

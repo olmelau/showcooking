@@ -17,8 +17,18 @@
 </form>
 
 <!-- Lista de favoritos -->
-<form action="/desarrollo_servidor/Showcooking/public/index.php/api/getFavShowcooking">
-    <button>Lista de Favorito</button>
+<form action="/desarrollo_servidor/Showcooking/public/index.php/visitante/verFavoritos">
+    <button>Lista de Favoritos</button>
+</form>
+
+<!-- Comentar Showcooking -->
+<form action="/desarrollo_servidor/Showcooking/public/index.php/visitante/comentarShowcooking" method="POST">
+    <h3>Comentar Showcooking</h3>
+    <label for="titulo">Título</label>
+    <input type="text" name="titulo" id="titulo" placeholder="titulo del showcooking">
+    <label for="comentario">Comentario</label>
+    <input type="text" name="comentario" id="comentario">
+    <button>Comentar ShowCooking</button>
 </form>
 
 <!-- Cerrar Sesion -->

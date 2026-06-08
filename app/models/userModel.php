@@ -142,14 +142,70 @@ class UserModel
 
         $sql = 'SELECT * FROM showcooking
                 WHERE publicado = 1';
-
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-     
+
     }
+
+    public function insertarComentario($titulo, $comentario, $id_usuario)
+    {
+
+        $sql = "SELECT id_showcooking FROM showcooking
+                WHERE titulo = :titulo";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+        $stmt->execute();
+        $id_showcooking = $stmt->fetchColumn();
+
+        $sql2 = "INSERT INTO comenta (id_usuario, id_showcooking, comentario, fecha)
+                 VALUES (:id_usuario, :id_showcooking, :comentario, SYSDATE())";
+        $stmt = $this->db->prepare($sql2);
+        $stmt->bindParam(':id_showcooking', $id_showcooking, PDO::PARAM_INT);
+        $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $comentarOK = $stmt->execute();
+
+        if ($comentarOK) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public function getFavoritos($id_usuario)
+    {
+        $sql = "SELECT f.id_showcooking, s.titulo 
+                FROM favoritos as f
+                INNER JOIN showcooking as s on f.id_showcooking = s.id_showcooking
+                WHERE f.id_usuario = :id_usuario";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+    //----------------------------------  COCINERO -----------------------------
+    public function getShowcookingPropio($id_usuario){
+
+        $sql = "SELECT * FROM showcooking
+                WHERE id_propietario = :id_usuario";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $showcooking = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $showcooking;
+    }
+
 }
 
 ?>

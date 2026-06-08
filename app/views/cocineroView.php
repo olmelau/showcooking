@@ -1,7 +1,5 @@
-<p>cocinero view</p>
-
 <!-- Ver Shocooking -->
-<form action="/desarrollo_servidor/Showcooking/public/index.php/api/showcooking" method="GET">
+<form action="/desarrollo_servidor/Showcooking/public/index.php/cocinero/verShowcookingPropios">
 <h3>Ver Showcookking</h3>    
 <button>Ver ShowCooking</button>
 </form>
