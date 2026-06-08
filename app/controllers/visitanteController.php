@@ -52,13 +52,59 @@ class VisitanteController
         }
     }
 
-    
+    public function verShowcooking()
+    {
+
+        $visitante = $_SESSION['usuario'];
+        $this->comprobarUsuario();
+
+        $showcookings = $visitante->verShowcooking();
+
+        $this->imprimirShowcooking($showcookings);
+
+    }
+
+    public function imprimirShowcooking($showcookings)
+    {
+
+        $this->comprobarUsuario();
+
+        if (empty($showcookings)) {
+            echo "<p>No hay showcookings para mostrar.</p>";
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+            return;
+        } else{
+
+        echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+
+            foreach ($showcookings as $showcooking) {
+                echo "<div>";
+                echo "<h1>".$showcooking['titulo']."</h1>";
+                echo "<iframe src='" . $showcooking['url_youtube'] . "' 
+                width='560' height='315' 
+                frameborder='0'>
+                </iframe>";
+                //  echo "<a href='" . htmlspecialchars($showcooking['url_youtube']) . "' target='_blank'>Ver video en YouTube</a>";
+                echo "</div>";
+            }
+
+        }
+
+
+    }
+
+
     //--------------------------------- CERRAR SESION ----------------------------
 
-        public function cerrarSesion(){
+    public function cerrarSesion()
+    {
 
         Usuario::cerrarSesion();
-        
+
     }
 
 }

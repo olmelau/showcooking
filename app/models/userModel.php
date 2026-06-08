@@ -1,15 +1,18 @@
 <?php
 
-require_once CONFIG_PATH.'conexionBaseDatos.php';
-class UserModel{
+require_once CONFIG_PATH . 'conexionBaseDatos.php';
+class UserModel
+{
 
     private $db;
-    public function __construct(){
+    public function __construct()
+    {
         $this->db = ConexionBD::conexion();
     }
 
     //-------------------------------- USUARIOS ----------------------------
-    public function getUsuarios(){
+    public function getUsuarios()
+    {
         //devuelve todos los usuarios
         $sql = "SELECT * FROM usuario";
         $stmt = $this->db->prepare($sql);
@@ -17,7 +20,8 @@ class UserModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function insertarUsuario($username, $contrasena, $email, $id_rol){
+    public function insertarUsuario($username, $contrasena, $email, $id_rol)
+    {
         //añade un usuario a la tabla
         $sql = "INSERT INTO usuario (username, contrasena, email, id_rol)
                 VALUES (:username, :contrasena, :email, :id_rol)";
@@ -31,7 +35,8 @@ class UserModel{
 
     }
 
-    public function borrarUsuario($username){
+    public function borrarUsuario($username)
+    {
 
         $sql = "DELETE FROM usuario
                 WHERE (username = :username)";
@@ -42,7 +47,8 @@ class UserModel{
         return $stmt->execute();
     }
 
-    public function actualizarUsuario($username, $username_nuevo, $contrasena_nueva, $email_nuevo, $id_rol_nuevo){
+    public function actualizarUsuario($username, $username_nuevo, $contrasena_nueva, $email_nuevo, $id_rol_nuevo)
+    {
 
 
         $sql = "UPDATE usuario
@@ -61,7 +67,8 @@ class UserModel{
     }
 
     //-------------------------------- CATEGORIAS ----------------------------
-    public function getCategorias(){
+    public function getCategorias()
+    {
 
         $sql = "SELECT * FROM categoria";
         $stmt = $this->db->prepare($sql);
@@ -69,7 +76,8 @@ class UserModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function insertarCategoria($nombre_categoria){
+    public function insertarCategoria($nombre_categoria)
+    {
         $sql = "INSERT INTO categoria (nombre_categoria)
                 VALUES (:nombre_categoria)";
         $stmt = $this->db->prepare($sql);
@@ -78,7 +86,8 @@ class UserModel{
 
     }
 
-    public function eliminarCategoria($categoria){
+    public function eliminarCategoria($categoria)
+    {
         $sql = "DELETE FROM categoria
                 WHERE (nombre_categoria = :categoria)";
         $stmt = $this->db->prepare($sql);
@@ -86,7 +95,8 @@ class UserModel{
         return $stmt->execute();
     }
 
-    public function actualizarCategoria($nombre_categoria, $nombre_categoria_nuevo){
+    public function actualizarCategoria($nombre_categoria, $nombre_categoria_nuevo)
+    {
 
         $sql = "UPDATE categoria
                 SET nombre_categoria = :nombre_categoria_nuevo
@@ -100,7 +110,8 @@ class UserModel{
     }
 
     // -------------------------------- VISITANTE ----------------------------
-    public function valorarShowcooking($titulo, $valoracion, $id_usuario){
+    public function valorarShowcooking($titulo, $valoracion, $id_usuario)
+    {
 
         $sql = "SELECT id_showcooking FROM showcooking
                 WHERE titulo = :titulo";
@@ -116,14 +127,28 @@ class UserModel{
         $stmt->bindParam(':id_showcooking', $id_showcooking, PDO::PARAM_INT);
         $stmt->bindParam(':valoracion', $valoracion, PDO::PARAM_INT);
         $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-        $valorarOK  = $stmt->execute();
+        $valorarOK = $stmt->execute();
 
         if ($valorarOK) {
-           return true;
-        } else{
+            return true;
+        } else {
             return false;
         }
 
+    }
+
+    public function getShowcooking()
+    {
+
+        $sql = 'SELECT * FROM showcooking
+                WHERE publicado = 1';
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+     
     }
 }
 

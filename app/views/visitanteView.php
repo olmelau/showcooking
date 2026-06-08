@@ -1,10 +1,10 @@
 <p>visitante view</p>
 
 <!-- Ver Shocooking -->
-<form action="/desarrollo_servidor/Showcooking/public/index.php/api/showcooking" method="GET">
+<form action="/desarrollo_servidor/Showcooking/public/index.php/visitante/verShowcooking" method="GET">
 <h3>Ver Showcookking</h3>    
 <button>Ver ShowCooking</button>
-    </form>
+</form>
 
 <!-- Valorar Showcooking -->
 <form action="/desarrollo_servidor/Showcooking/public/index.php/visitante/valorarShowcooking" method="POST">

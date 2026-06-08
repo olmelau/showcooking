@@ -46,6 +46,23 @@ private $listaFavoritos = [];
         // $listaFavoritos->push();
     }
 
+    public function verShowcooking(){
+        
+        $modelo = new UserModel();
+        $showcookings = $modelo->getShowcooking();
+
+         if ($showcookings) {
+           
+         return $showcookings;
+        
+            } else {
+            
+            echo "<form action='/desarrollo_servidor/Showcooking/public/index.php/visitante/imprimirPanel'>
+                <button>Volver Atrás</button>    
+            </form>";
+        }
+    }
+
 
 }
 
