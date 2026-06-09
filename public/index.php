@@ -13,6 +13,7 @@ $partes = explode('/', $uri);
 
 $controllerUri = $partes[4] ?? "login"; //la parte de la uri que es el controlador -> api o home o cualquier otro controller que vaya a implementar
 $action = $partes[5] ?? "verLogin";  //accion o metodo que tiene que estar dentro del controlador
+$parteApi = $partes[6] ?? null; //La parte que utilizo para el id en la api y sacar un showcooking concreto
 $class = $controllerUri . "Controller";
 
 $rutaClass = CONTROLLER_PATH.$class.'.php';
@@ -27,7 +28,14 @@ if (file_exists($rutaClass)) {
 
     if ($action != null && method_exists($controller, $action)) {
 
-        $controller->$action();
+
+        if ($parteApi != null) {
+            $controller->$action($parteApi);
+
+        }else {
+            $controller->$action();
+
+        }
 
     } else {
         
