@@ -54,12 +54,6 @@ class Usuario
       $this->contrasena = $contrasena;
    }
 
-   //métodos propios de usuario
-   public function registarse()
-   {
-
-   
-   }
 
    public static function cerrarSesion()
    {
@@ -86,17 +80,6 @@ class Usuario
 
       }
    }
-
-   public function comprobarCredenciales()
-   {
-
-   }
-
-
-
-
-
-
 
 
 }

@@ -8,9 +8,6 @@ Una duda que me surge es cómo se qué cocinero ha creado qué showcooking. --->
 
 He modificado la tabla añadiendo un campo propietario, los shocooking que no tienen propietario, son por defecto el admin.
 
-Para hashear la contraseña utilizaré un método existente en php.
-
-
 -- Requisitos necesarios en nuestro sistema:
 
 1. Inicio de sesión:

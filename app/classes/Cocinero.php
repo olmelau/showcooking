@@ -8,14 +8,7 @@ require_once 'Usuario.php';
         require_once VIEW_PATH.'cocineroView.php';
     }
 
-    public function darAltaShowcooking(){
-    //insertar en la tabla showcooking
-    }
-    
-    public function actualizarShowcooking(){
-    //editar showcooking
-    }
-
+   
     public function cambiarEstadoShowcooking($id_usuario, $titulo, $publicado){
 
         $model = new UserModel();
