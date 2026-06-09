@@ -33,4 +33,36 @@ class LoginModel{
 
     }
 
+
+    public function comprobarExiste($username_registro, $email_registro){
+
+        $sql = "SELECT username, email FROM usuario 
+                WHERE username = :username_registro OR email = :email_registro";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':username_registro', $username_registro, PDO::PARAM_STR);
+        $stmt->bindParam(':email_registro', $email_registro, PDO::PARAM_STR);
+
+        $datos = $stmt->execute();
+        $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $datos;
+
+    }
+
+    public function registrarse($username_registro, $contrasena_registro, $email_registro){
+
+            $sql = "INSERT INTO usuario (username, contrasena, email, id_rol)
+                    VALUES (:username_registro, :contrasena_registro, :email_registro, 3)";
+            
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':username_registro', $username_registro, PDO::PARAM_STR);
+            $stmt->bindParam(':contrasena_registro', $contrasena_registro, PDO::PARAM_STR);
+            $stmt->bindParam(':email_registro', $email_registro, PDO::PARAM_STR);
+            
+            $insertOK = $stmt->execute();
+
+            return $insertOK;
+    }
+
 }

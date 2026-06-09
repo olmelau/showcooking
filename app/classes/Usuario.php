@@ -55,8 +55,10 @@ class Usuario
    }
 
    //métodos propios de usuario
-   public function iniciarSesion()
+   public function registarse()
    {
+
+   
    }
 
    public static function cerrarSesion()
@@ -83,10 +85,6 @@ class Usuario
          header('Location:/desarrollo_servidor/Showcooking/public/index.php');
 
       }
-   }
-
-   public function registrarse()
-   {
    }
 
    public function comprobarCredenciales()
